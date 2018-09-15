@@ -10,11 +10,11 @@ const server = net.createServer((client) => {
 
 	client.on('data', (data) => {
 		if (data === 'QA') client.write('ACK');
-        else client.write(Math.floor(Math.random()));	// send 0 or 1
+        else client.write(Math.floor(Math.random() * 2).toString());	// send 0 or 1
 	});
 
 	client.on('end', () => {
-
+		console.log('Client disconnected');
 	});
 });
 
