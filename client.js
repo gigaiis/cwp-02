@@ -6,6 +6,7 @@ const port = 8124;
 const client = new net.Socket();
 
 let ARRQ;
+let CURRENTID = -1;
 
 client.setEncoding('utf8');
 client.connect(port, function() {
@@ -22,7 +23,7 @@ client.connect(port, function() {
 client.on('data', function(data) {
 	//console.log(data);
 	if (data === 'DEC') client.destroy();
-	else if (data === 'ACK') { }
+	else if (data === 'ACK') sendQuestion();
 	else { }
 });
 
@@ -40,4 +41,9 @@ function shuffle(array) {
 		array.splice(n, 1);
 	}
 	return result;
+}
+
+function sendQuestion() {
+	if (CURRENTID < ARRQ.length - 1) client.write(ARRQ[++CURRENTID].q);
+    else client.destroy();
 }
