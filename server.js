@@ -9,7 +9,8 @@ const server = net.createServer((client) => {
 	client.setEncoding('utf8');
 
 	client.on('data', (data) => {
-
+		if (data === 'QA') client.write('ACK');
+        else client.write(Math.floor(Math.random()));	// send 0 or 1
 	});
 
 	client.on('end', () => {
