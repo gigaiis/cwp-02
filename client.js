@@ -7,13 +7,15 @@ const client = new net.Socket();
 client.setEncoding('utf8');
 
 client.connect(port, function() {
-  console.log('Connected');
-  client.write('\r\nHello, Server!\r\nLove,\r\nClient.\r\n');
+	console.log('Connected');
+  
 });
 
 client.on('data', function(data) {
-  console.log(data);
-  client.destroy();
+	//console.log(data);
+	if (data === 'DEC') client.destroy();
+	else if (data === 'ACK') { }
+	else { }
 });
 
 client.on('close', function() {
