@@ -24,7 +24,14 @@ client.on('data', function(data) {
 	//console.log(data);
 	if (data === 'DEC') client.destroy();
 	else if (data === 'ACK') sendQuestion();
-	else { }
+	else { 
+		let ANSW = "Bad answer";
+		if (data === '1') ANSW = ARRQ[CURRENTID].g;
+		console.log('Question: ' + ARRQ[CURRENTID].q);
+        console.log('Answer: ' + ARRQ[CURRENTID].g);
+        console.log('Server Answer: ' + ANSW);
+        sendQuestion();
+	}
 });
 
 client.on('close', function() {
