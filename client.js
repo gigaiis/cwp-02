@@ -9,7 +9,7 @@ let ARRQ;
 let CURRENTID = -1;
 
 client.setEncoding('utf8');
-client.connect(port, function() {
+client.connect(port, () => {
 	console.log('Connected');
   	fs.readFile('qa.json', (e, text) => {
         if (e) console.log(e);
@@ -20,7 +20,7 @@ client.connect(port, function() {
     });
 });
 
-client.on('data', function(data) {
+client.on('data', (data) => {
 	//console.log(data);
 	if (data === 'DEC') client.destroy();
 	else if (data === 'ACK') sendQuestion();
@@ -34,9 +34,7 @@ client.on('data', function(data) {
 	}
 });
 
-client.on('close', function() {
-  console.log('Connection closed');
-});
+client.on('close', () => console.log('Connection closed'));
 
 function shuffle(array) {
 	let n;
