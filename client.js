@@ -4,11 +4,18 @@ const port = 8124;
 
 const client = new net.Socket();
 
-client.setEncoding('utf8');
+let ARRQ;
 
+client.setEncoding('utf8');
 client.connect(port, function() {
 	console.log('Connected');
-  
+  	fs.readFile('qa.json', (e, text) => {
+        if (e) console.log(err);
+        else {
+            ARRQ = JSON.parse(text);
+            client.write('QA');
+        }
+    });
 });
 
 client.on('data', function(data) {
